@@ -228,36 +228,6 @@ Xtrain_orig, Ytrain_orig = loadlocal_mnist(pathXtrain,pathYtrain)
 Xtest_orig, Ytest_orig = loadlocal_mnist(pathXtest,pathYtest)
 
 
-
-Xtrain_orig = Xtrain_orig[:]
-Ytrain_orig = Ytrain_orig[:]
-
-
-Xtrain_orig = Xtrain_orig.reshape(-1,28,28)
-Xtest_orig = Xtest_orig.reshape(-1,28,28)
-Xtrain = Xtrain_orig.reshape(-1,28,28,1)/255
-Xtest = Xtest_orig.reshape(-1,28,28,1)/255
-
-sess = tf.Session()
-MyModel = CNNS()
-
-Ytrain = sess.run(MyModel.toOneHot(Ytrain_orig,10))
-
-Ytest = sess.run(MyModel.toOneHot(Ytest_orig,10))
-
-
-sess.close()
-
-#Architechture Blue print : 
-#arch := list of tuples 
-#Input -types : 
-# 1. Input-Image-Array := ('input', m, w, h, d)
-# 2. Conv-filters      := ('conv', f, f, c, stride, "SAME"/"VALID")   #NOTE : FOR "SAME" stride >1 HAS TO BE PICKED ACCORDINGLY 
-# 3. Maxpool-filters   := ('maxpool', f, f, stride, "SAME"/"VALID")   #NOTE : FOR "SAME" stride >1 HAS TO BE PICKED ACCORDINGLY
-# 4. Flatten           := ('Flatten',) 
-# 5. Feed-Forward      := ('ordlayers', nodes) #DEPRECATED - LATELY
-# 6. Fully-Connected   := ('fc', output_nodes)
-# 7. Softmax           := ('softmax', output_nodes)
 Xtrain_orig = Xtrain_orig[:]
 Ytrain_orig = Ytrain_orig[:]
 
@@ -284,7 +254,7 @@ sess.close()
 # 2. Conv-filters      := ('conv', f, f, c, stride, "SAME"/"VALID")   #NOTE : FOR "SAME" stride >1 DOESN'T WORK
 # 3. Maxpool-filters   := ('maxpool', f, f, stride, "SAME"/"VALID")   #NOTE : FOR "SAME" stride >1 DOESN'T WORK
 # 4. Flatten           := ('Flatten',) 
-# 5. Feed-Forward      := ('ordlayers', nodes)
+# 5. Feed-Forward      := ('ordlayers', nodes) #DEPRECATED
 # 6. Fully-Connected   := ('fc', output_nodes)
 # 7. Softmax           := ('softmax', output_nodes)
 
@@ -297,7 +267,6 @@ _ = MyModel.predict(arch, parameters, Xtest)
 
 print(Ypredi[:30])
 
-#print(parameters['W'])
 
 #print(parameters['W'])
 
